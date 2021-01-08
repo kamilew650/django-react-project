@@ -17,14 +17,14 @@ const mockupResponse = [
 
 export default function FolderDetailsView() {
   const history = useHistory();
-  const folderName = history.location.pathname.replace("/Folder/", "");
+  const folderName = history.location.pathname.replace("/folder/", "");
 
   return (
     <>
-      <Typography variant="h1" gutterBottom>
+      <Typography variant="h2" gutterBottom>
         {folderName}
       </Typography>
-      <GridList cellHeight={320} cols={2}>
+      <GridList cellHeight={320} cols={2} style={{ margin: "0px" }}>
         {mockupResponse.map((tile) => (
           <GridListTile key={tile.before}>
             <Card>

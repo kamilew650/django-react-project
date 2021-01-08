@@ -26,7 +26,7 @@ export default function FoldersView() {
   };
 
   return (
-    <GridList cellHeight={320} cols={2}>
+    <GridList cellHeight={320} cols={2} style={{ margin: "0px" }}>
       {mockupResponse.map((tile) => (
         <GridListTile
           key={tile.name}
