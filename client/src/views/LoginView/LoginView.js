@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import useLocalStorage from "../../utils/useLocalStorage/useLocalStorage";
 import { useHistory } from "react-router-dom";
+import LoginContext from "../../context/LoginContext";
 
 export default function LoginView() {
   const [login, setLogin] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [token, setToken] = useLocalStorage("token", "");
+  const [context, setContext] = useContext(LoginContext);
   const history = useHistory();
 
   const loginHandler = () => {
-    console.log({ login, password });
     setToken("XD");
     history.push("/");
+    setContext(true);
   };
 
   return (
