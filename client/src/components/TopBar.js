@@ -31,7 +31,20 @@ export default function TopBar() {
                 FOLDERS
               </Typography>
             </Link>
-          ) : null}
+          ) : (
+            <Link
+              to="/register"
+              style={{
+                color: "white",
+                textDecorationLine: "none",
+                marginRight: "8px",
+              }}
+            >
+              <Typography color="inherit" variant="h6">
+                REGISTER
+              </Typography>
+            </Link>
+          )}
           <Link
             to="/about"
             style={{ color: "white", textDecorationLine: "none" }}
