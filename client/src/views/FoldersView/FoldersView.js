@@ -1,9 +1,25 @@
+import React from "react";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
+import CreateFolderDialog from "../../components/CreateFolderDialog/CreateFolderDialog";
+
+const StyledCard = styled(Card)`
+  height: 95%;
+  background-color: aliceblue;
+  :hover {
+    background-color: #e0f1ff;
+  }
+  transition: all 0.4s;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  text-align: center;
+`;
 
 const mockupResponse = [
   {
@@ -18,6 +34,7 @@ const mockupResponse = [
 ];
 
 export default function FoldersView() {
+  const [open, setOpen] = React.useState(false);
   //Add fetch in useEffect during first render
   const history = useHistory();
 
@@ -26,22 +43,34 @@ export default function FoldersView() {
   };
 
   return (
-    <GridList cellHeight={320} cols={2} style={{ margin: "0px" }}>
-      {mockupResponse.map((tile) => (
-        <GridListTile
-          key={tile.name}
-          cols={tile.cols || 1}
-          onClick={() => clickHandler(tile.name)}
-        >
-          <Card>
+    <>
+      <GridList cellHeight={320}>
+        {mockupResponse.map((tile) => (
+          <GridListTile
+            key={tile.name}
+            cols={tile.cols || 1}
+            onClick={() => clickHandler(tile.name)}
+          >
+            <StyledCard>
+              <CardContent>
+                <Typography variant="h4" gutterBottom>
+                  {tile.name}
+                </Typography>
+              </CardContent>
+            </StyledCard>
+          </GridListTile>
+        ))}
+        <GridListTile key="add" onClick={() => setOpen(true)}>
+          <StyledCard>
             <CardContent>
-              <Typography variant="h3" gutterBottom>
-                {tile.name}
+              <Typography variant="h4" gutterBottom>
+                ADD NEW FOLDER
               </Typography>
             </CardContent>
-          </Card>
+          </StyledCard>
         </GridListTile>
-      ))}
-    </GridList>
+      </GridList>
+      <CreateFolderDialog open={open} setOpen={setOpen} />
+    </>
   );
 }
