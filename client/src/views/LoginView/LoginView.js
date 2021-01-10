@@ -1,7 +1,17 @@
 import React, { useContext } from "react";
-import useLocalStorage from "../../utils/useLocalStorage/useLocalStorage";
+import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import { TextField, Button } from "@material-ui/core";
 import LoginContext from "../../context/LoginContext";
+import useLocalStorage from "../../utils/useLocalStorage/useLocalStorage";
+
+const StyledDiv = styled.div`
+  width: 100%;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
 
 export default function LoginView() {
   const [login, setLogin] = React.useState("");
@@ -17,20 +27,24 @@ export default function LoginView() {
   };
 
   return (
-    <div>
+    <StyledDiv>
       <h1>Login screen</h1>
-      <h4>It does nothing, just click the button</h4>
-      <input
-        type="text"
+      <TextField
+        label="Login"
+        variant="outlined"
         value={login}
         onChange={(e) => setLogin(e.target.value)}
       />
-      <input
+      <TextField
+        label="Password"
+        variant="outlined"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={loginHandler}>Login</button>
-    </div>
+      <Button onClick={loginHandler} variant="contained" color="primary">
+        Login
+      </Button>
+    </StyledDiv>
   );
 }
