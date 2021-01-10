@@ -18,16 +18,26 @@ export default function TopBar() {
     <AppBar position="static">
       <Router>
         <Toolbar>
+          {context ? (
+            <Link
+              to="/#"
+              style={{
+                color: "white",
+                textDecorationLine: "none",
+                marginRight: "8px",
+              }}
+            >
+              <Typography color="inherit" variant="h6">
+                FOLDERS
+              </Typography>
+            </Link>
+          ) : null}
           <Link
-            to="/#"
-            style={{
-              color: "white",
-              textDecorationLine: "none",
-              marginRight: "8px",
-            }}
+            to="/about"
+            style={{ color: "white", textDecorationLine: "none" }}
           >
             <Typography color="inherit" variant="h6">
-              FOLDERS
+              ABOUT US
             </Typography>
           </Link>
           {context ? (
@@ -46,14 +56,6 @@ export default function TopBar() {
               </Button>
             </Link>
           ) : null}
-          <Link
-            to="/about"
-            style={{ color: "white", textDecorationLine: "none" }}
-          >
-            <Typography color="inherit" variant="h6">
-              ABOUT US
-            </Typography>
-          </Link>
         </Toolbar>
       </Router>
     </AppBar>
