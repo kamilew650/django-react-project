@@ -1,17 +1,46 @@
 version: "3"
    
 services:
-  db:
-    image: postgres
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
   server:
-    build: ./server
-    command: python ./manage.py runserver 0.0.0.0:8000
+    image: node:lts-alpine
+    volumes:
+      - "./server/package.json:/usr/app/backend/package.json"
+      - "./server/package-lock.json:/usr/app/backend/package-lock.json"
+      - "./server/tsconfig.json:/usr/app/backend/tsconfig.json"
+      - "./server/tsconfig.build.json:/usr/app/backend/tsconfig.build.json"
+      - "./server/src:/usr/app/backend/src"
+      - "backend_node_modules:/usr/app/backend/node_modules"
+    working_dir: /usr/app/backend
+    command: sh -c "npm install && npm run start:dev"
     ports:
-      - "8000:8000"
-    tty: true
+      - "4000:4000"
     depends_on:
       - db
+    env_file:
+      - .env
+
+  db:
+    image: postgres:12-alpine
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+
+  client:
+    image: node:lts-alpine
+    volumes:
+      - "./client/package.json:/usr/app/webapp/package.json"
+      - "./client/yarn.lock:/usr/app/webapp/yarn.lock"
+      - "./client/src:/usr/app/webapp/src"
+      - "./client/public:/usr/app/webapp/public"
+      - "webapp_node_modules:/usr/app/webapp/node_modules"
+    working_dir: /usr/app/webapp
+    command: sh -c "yarn && yarn start"
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+
+volumes:
+  webapp_node_modules:
+  backend_node_modules:
