@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, Typography } from "@material-ui/core";
 import LoginContext from "../../context/LoginContext";
 import useLocalStorage from "../../utils/useLocalStorage/useLocalStorage";
 
@@ -11,6 +11,8 @@ const StyledDiv = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  gap: 6px;
+  margin-top: 30%;
 `;
 
 export default function LoginView() {
@@ -28,7 +30,7 @@ export default function LoginView() {
 
   return (
     <StyledDiv>
-      <h1>Login screen</h1>
+      <Typography variant="h3">Login</Typography>
       <TextField
         label="Login"
         variant="outlined"
