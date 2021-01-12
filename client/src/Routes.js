@@ -10,6 +10,7 @@ import RegisterView from "./views/RegisterView/RegisterView";
 import FoldersView from "./views/FoldersView/FoldersView";
 import FolderDetailsView from "./views/FolderDetailsView/FolderDetailsView";
 import GetCards from "./views/GetCards/GetCards";
+import ViewAllCards from "./views/ViewAllCards/ViewAllCards";
 import LoginContext from "./context/LoginContext";
 
 export default function Routes() {
@@ -34,6 +35,9 @@ export default function Routes() {
           </Route>
           <Route path="/getCards">
             <GetCards />
+          </Route>
+          <Route path="/viewAll">
+            <ViewAllCards />
           </Route>
         </Switch>
       </div>

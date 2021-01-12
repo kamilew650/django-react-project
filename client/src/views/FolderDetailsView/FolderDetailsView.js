@@ -25,15 +25,19 @@ export default function FolderDetailsView() {
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
 
-  const clickHandler = (e) => {
+  const getCardsClickHandler = (e) => {
     history.push(`/getCards`);
+  };
+
+  const viewAllClickHandler = (e) => {
+    history.push(`/viewAll`);
   };
 
   return (
     <>
       <GridList cellHeight={320} style={{ margin: "0px" }}>
         <GridListTile key="getCards">
-          <StyledCard onClick={clickHandler}>
+          <StyledCard onClick={getCardsClickHandler}>
             <CardContent>
               <Typography variant="h4" gutterBottom>
                 GET CARDS
@@ -42,7 +46,7 @@ export default function FolderDetailsView() {
           </StyledCard>
         </GridListTile>
         <GridListTile key="viewCards">
-          <StyledCard>
+          <StyledCard onClick={viewAllClickHandler}>
             <CardContent>
               <Typography variant="h4" gutterBottom>
                 VIEW ALL
