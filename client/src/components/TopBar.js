@@ -18,17 +18,54 @@ export default function TopBar() {
     <AppBar position="static">
       <Router>
         <Toolbar>
-          <Link to="/#" style={{ color: "white", textDecorationLine: "none" }}>
-            <Typography color="inherit"> FOLDERS </Typography>
+          {context ? (
+            <Link
+              to="/#"
+              style={{
+                color: "white",
+                textDecorationLine: "none",
+                marginRight: "8px",
+              }}
+            >
+              <Typography color="inherit" variant="h6">
+                FOLDERS
+              </Typography>
+            </Link>
+          ) : (
+            <Link
+              to="/register"
+              style={{
+                color: "white",
+                textDecorationLine: "none",
+                marginRight: "8px",
+              }}
+            >
+              <Typography color="inherit" variant="h6">
+                REGISTER
+              </Typography>
+            </Link>
+          )}
+          <Link
+            to="/about"
+            style={{ color: "white", textDecorationLine: "none" }}
+          >
+            <Typography color="inherit" variant="h6">
+              ABOUT US
+            </Typography>
           </Link>
-
           {context ? (
             <Link
               to="/login"
-              style={{ color: "white", textDecorationLine: "none" }}
+              style={{
+                color: "white",
+                textDecorationLine: "none",
+                marginRight: "8px",
+              }}
             >
               <Button color="inherit" onClick={handleLogout}>
-                LOGOUT
+                <Typography color="inherit" variant="h6">
+                  LOGOUT
+                </Typography>
               </Button>
             </Link>
           ) : null}

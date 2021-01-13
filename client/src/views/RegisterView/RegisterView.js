@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { TextField, Button, Typography } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 import LoginContext from "../../context/LoginContext";
 import useLocalStorage from "../../utils/useLocalStorage/useLocalStorage";
 
@@ -11,13 +11,12 @@ const StyledDiv = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 6px;
-  margin-top: 30%;
 `;
 
-export default function LoginView() {
+export default function RegisterView() {
   const [login, setLogin] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [passwordConfirm, setPasswordConfirm] = React.useState("");
   const [token, setToken] = useLocalStorage("token", "");
   const [context, setContext] = useContext(LoginContext);
   const history = useHistory();
@@ -30,7 +29,7 @@ export default function LoginView() {
 
   return (
     <StyledDiv>
-      <Typography variant="h3">Login</Typography>
+      <h1>Login screen</h1>
       <TextField
         label="Login"
         variant="outlined"
@@ -44,7 +43,19 @@ export default function LoginView() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button onClick={loginHandler} variant="contained" color="primary">
+      <TextField
+        label="Confirm Password"
+        variant="outlined"
+        type="password"
+        value={passwordConfirm}
+        onChange={(e) => setPasswordConfirm(e.target.value)}
+      />
+      <Button
+        onClick={loginHandler}
+        variant="contained"
+        color="primary"
+        disabled={!(passwordConfirm === password) && password !== ""}
+      >
         Login
       </Button>
     </StyledDiv>

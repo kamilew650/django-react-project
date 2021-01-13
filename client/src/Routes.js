@@ -6,8 +6,11 @@ import {
   Redirect,
 } from "react-router-dom";
 import LoginView from "./views/LoginView/LoginView";
+import RegisterView from "./views/RegisterView/RegisterView";
 import FoldersView from "./views/FoldersView/FoldersView";
 import FolderDetailsView from "./views/FolderDetailsView/FolderDetailsView";
+import GetCards from "./views/GetCards/GetCards";
+import ViewAllCards from "./views/ViewAllCards/ViewAllCards";
 import LoginContext from "./context/LoginContext";
 
 export default function Routes() {
@@ -24,8 +27,17 @@ export default function Routes() {
           <Route path="/login">
             <LoginView />
           </Route>
+          <Route path="/register">
+            <RegisterView />
+          </Route>
           <Route path="/folder">
             <FolderDetailsView />
+          </Route>
+          <Route path="/getCards">
+            <GetCards />
+          </Route>
+          <Route path="/viewAll">
+            <ViewAllCards />
           </Route>
         </Switch>
       </div>
