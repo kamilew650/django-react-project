@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import FolderContext from "../../context/FolderContext";
 
 export default function CreateCardDialog(props) {
   const [toTranslate, setToTranslate] = React.useState("");
   const [translated, setTranslated] = React.useState("");
+  const [context, setContext] = useContext(FolderContext);
 
   const handleClose = () => {
     props.setOpen(false);
@@ -21,7 +22,8 @@ export default function CreateCardDialog(props) {
         new URLSearchParams({
           key: process.env.REACT_APP_GOOGLE_API_KEY,
           q: toTranslate,
-          target: "en",
+          source: context.fromLang,
+          target: context.toLang,
         }),
       {
         method: "post",
@@ -41,9 +43,6 @@ export default function CreateCardDialog(props) {
     >
       <DialogTitle id="form-dialog-title">Add new card</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          Tu trzeba dodać obsługę google tłumacza czy coś
-        </DialogContentText>
         <TextField
           autoFocus
           margin="dense"
@@ -53,10 +52,14 @@ export default function CreateCardDialog(props) {
           value={toTranslate}
           onChange={(e) => setToTranslate(e.target.value)}
         />
-        <TextField disabled label="Translated" value={translated} fullWidth />
+        <TextField label="Translated" value={translated} fullWidth />
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => translateHandler()} color="primary">
+        <Button
+          onClick={() => translateHandler()}
+          color="primary"
+          disabled={!toTranslate}
+        >
           Translate
         </Button>
         <Button onClick={handleClose} color="primary">
