@@ -1,5 +1,5 @@
 //Hardcoded language options to avoid unnecessary fetches
-export const languages = [
+const languages = [
   { full: "Afrikaans", short: "af" },
   { full: "Albanian", short: "sq" },
   { full: "Amharic", short: "am" },
@@ -34,7 +34,7 @@ export const languages = [
   { full: "Haitian Creole", short: "ht" },
   { full: "Hausa", short: "ha" },
   { full: "Hawaiian", short: "haw" },
-  { full: "Hebrew", short: "he or iw" },
+  { full: "Hebrew", short: "he" },
   { full: "Hindi", short: "hi" },
   { full: "Hmong", short: "hmn" },
   { full: "Hungarian", short: "hu" },
@@ -110,3 +110,5 @@ export const languages = [
   { full: "Yoruba", short: "yo" },
   { full: "Zulu", short: "zu" },
 ];
+
+export default languages;
