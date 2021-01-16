@@ -7,7 +7,7 @@ export class Card {
   readonly id: number;
 
   @Column()
-  orginalContent: string;
+  originalContent: string;
 
   @Column()
   translatedContent: string;
