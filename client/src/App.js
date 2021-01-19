@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Routes from "./Routes";
+import LoginContext from "./context/LoginContext";
+import TopBar from "./components/TopBar";
 
 function App() {
+  const [context, setContext] = useState(null);
+
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    if (token) setContext(token);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <LoginContext.Provider value={[context, setContext]}>
+      <TopBar />
+      <Routes />
+    </LoginContext.Provider>
   );
 }
 
