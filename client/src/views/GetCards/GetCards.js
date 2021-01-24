@@ -1,19 +1,19 @@
+import React, { useEffect } from "react";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GoBackButton from "../../components/GoBackButton/GoBackButton";
 import ClickableCard from "../../components/ClickableCard/ClickableCard";
-
-const mockupResponse = [
-  { before: "Bread", after: "Chleb" },
-  { before: "Apple", after: "Jabłko" },
-  { before: "Plum", after: "Śliwka" },
-  { before: "Snack", after: "Przekąska" },
-  { before: "Oil", after: "Olej" },
-  { before: "Parsley", after: "Pietruszka" },
-  { before: "Chives", after: "Szczypiorek" },
-];
+import fetchAuthorized from "../../utils/fetchAuthorized/fetchAuthorized";
 
 export default function GetCards() {
+  const [cards, setCards] = React.useState([]);
+
+  useEffect(() => {
+    fetchAuthorized("getRandomCards", "GET")
+      .then((res) => res.json())
+      .then((json) => setCards(json?.body?.cards));
+  }, []);
+
   const cols = Math.round(
     Math.max(
       document.documentElement.clientWidth || 0,
@@ -25,7 +25,7 @@ export default function GetCards() {
   return (
     <>
       <GridList cellHeight={320} cols={cols} style={{ margin: "0px" }}>
-        {mockupResponse.map((tile) => (
+        {cards.map((tile) => (
           <GridListTile key={tile.before}>
             <ClickableCard tile={tile} />
           </GridListTile>
