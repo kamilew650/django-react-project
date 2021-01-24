@@ -3,12 +3,7 @@ import { JwtService } from "@nestjs/jwt";
 import { verify } from "argon2";
 import { User } from "src/modules/user/entities/user.entity";
 import { UserService } from "src/modules/user/user.service";
-
-export enum AuthCheckResponseType {
-  SUCCESS = "SUCCESS",
-  INVALID = "INVALID",
-  USER_INACTIVE = "USER_INACTIVE",
-}
+import { LoginInput } from "./auth.input";
 
 @Injectable()
 export class AuthService {
