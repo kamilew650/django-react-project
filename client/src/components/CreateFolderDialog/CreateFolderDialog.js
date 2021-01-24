@@ -35,7 +35,6 @@ export default function CreateFolderDialog(props) {
           options={languages}
           getOptionLabel={(option) => option.full}
           style={{ width: 300 }}
-          onChange={(e, newVal) => console.log(newVal.short)}
           renderInput={(params) => (
             <TextField {...params} label="Input language" variant="outlined" />
           )}
