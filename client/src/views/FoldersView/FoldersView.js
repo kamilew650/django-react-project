@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import Card from "@material-ui/core/Card";
@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import CreateFolderDialog from "../../components/CreateFolderDialog/CreateFolderDialog";
 import FolderContext from "../../context/FolderContext";
+import fetchAutorized from "../../utils/fetchAuthorized/fetchAuthorized";
 
 const StyledCard = styled(Card)`
   height: 95%;
@@ -22,32 +23,18 @@ const StyledCard = styled(Card)`
   text-align: center;
 `;
 
-const mockupResponse = [
-  {
-    id: 1,
-    name: "Technical",
-    fromLang: "pl",
-    toLang: "en",
-  },
-  {
-    id: 2,
-    name: "Foods",
-    fromLang: "pl",
-    toLang: "es",
-  },
-  {
-    id: 3,
-    name: "Some other group",
-    fromLang: "pl",
-    toLang: "de",
-  },
-];
-
 export default function FoldersView() {
   const [open, setOpen] = React.useState(false);
+  const [folders, setFolders] = React.useState([]);
   //Add fetch in useEffect during first render
   const [context, setContext] = useContext(FolderContext);
   const history = useHistory();
+
+  useEffect(() => {
+    fetchAutorized("getFolders", "GET")
+      .then((res) => res.json)
+      .then((json) => setFolders(json));
+  });
 
   const clickHandler = (e) => {
     setContext(e);
@@ -57,7 +44,7 @@ export default function FoldersView() {
   return (
     <>
       <GridList cellHeight={320}>
-        {mockupResponse.map((tile) => (
+        {folders.map((tile) => (
           <GridListTile
             key={tile.name}
             cols={tile.cols || 1}
