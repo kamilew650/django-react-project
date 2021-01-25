@@ -27,7 +27,9 @@ export default function FolderDetailsView() {
   const history = useHistory();
 
   const getCardsClickHandler = (e) => {
-    history.push(`/getCards`);
+    history.push(
+      `/getCards/${history.location.pathname.replace("/folder/", "")}`
+    );
   };
 
   const deleteFolder = () => {
@@ -38,7 +40,9 @@ export default function FolderDetailsView() {
   };
 
   const viewAllClickHandler = (e) => {
-    history.push(`/viewAll`);
+    history.push(
+      `/viewAll/${history.location.pathname.replace("/folder/", "")}`
+    );
   };
 
   return (
