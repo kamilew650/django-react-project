@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -10,19 +11,32 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import GoBackButton from "../../components/GoBackButton/GoBackButton";
-
-const rows = [
-  { id: 1, before: "your", after: "twój" },
-  { id: 2, before: "old", after: "stary" },
-  { id: 3, before: "drunk", after: "pijany" },
-  { id: 4, before: "apple", after: "jabłko" },
-  { id: 5, before: "cod", after: "dorsz" },
-  { id: 6, before: "tobacco", after: "tytoń" },
-  { id: 7, before: "diced", after: "pokrojony w kostkę" },
-  { id: 8, before: "whole", after: "cały" },
-];
+import fetchAuthorized from "../../utils/fetchAuthorized/fetchAuthorized";
 
 export default function ViewAllCards() {
+  const [cards, setCards] = React.useState([]);
+  const [reset, setReset] = React.useState(false);
+  const history = useHistory();
+
+  useEffect(() => {
+    fetchAuthorized("getAllCards", "POST", {
+      id: history.location.pathname.replace("/viewAll/", ""),
+    })
+      .then((res) => res.json())
+      .then((json) => setCards(json?.body?.cards));
+  }, [history.location.pathname, reset]);
+
+  const handleDelete = (e) => {
+    fetchAuthorized("deleteCard", "POST", {
+      folderId: history.location.pathname.replace("/viewAll/", ""),
+      cardId: e,
+    })
+      .then((res) => res.json())
+      .then((json) => setCards(json?.body?.cards));
+
+    setReset(!reset);
+  };
+
   return (
     <>
       <Grid container spacing={0}>
@@ -47,14 +61,17 @@ export default function ViewAllCards() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {cards.map((row) => (
                   <TableRow key={row.id}>
                     <TableCell component="th" scope="row">
                       {row.before}
                     </TableCell>
                     <TableCell align="right">{row.after}</TableCell>
                     <TableCell align="right">
-                      <IconButton aria-label="delete">
+                      <IconButton
+                        aria-label="delete"
+                        onClick={() => handleDelete(row.id)}
+                      >
                         <DeleteIcon fontSize="small" />
                       </IconButton>
                     </TableCell>

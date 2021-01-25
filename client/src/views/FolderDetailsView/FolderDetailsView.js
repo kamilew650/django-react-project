@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 import CreateCardDialog from "../../components/CreateCardDialog/CreateCardDialog";
+import fetchAuthorized from "../../utils/fetchAuthorized/fetchAuthorized";
 
 const StyledCard = styled(Card)`
   height: 95%;
@@ -26,11 +27,22 @@ export default function FolderDetailsView() {
   const history = useHistory();
 
   const getCardsClickHandler = (e) => {
-    history.push(`/getCards`);
+    history.push(
+      `/getCards/${history.location.pathname.replace("/folder/", "")}`
+    );
+  };
+
+  const deleteFolder = () => {
+    fetchAuthorized("deleteFolder", "POST", {
+      id: history.location.pathname.replace("/folder/", ""),
+    });
+    history.push(`/#`);
   };
 
   const viewAllClickHandler = (e) => {
-    history.push(`/viewAll`);
+    history.push(
+      `/viewAll/${history.location.pathname.replace("/folder/", "")}`
+    );
   };
 
   return (
@@ -59,6 +71,15 @@ export default function FolderDetailsView() {
             <CardContent>
               <Typography variant="h4" gutterBottom>
                 ADD NEW CARD
+              </Typography>
+            </CardContent>
+          </StyledCard>
+        </GridListTile>
+        <GridListTile key="delete" onClick={() => deleteFolder()}>
+          <StyledCard>
+            <CardContent>
+              <Typography variant="h4" gutterBottom>
+                DELETE FOLDER
               </Typography>
             </CardContent>
           </StyledCard>

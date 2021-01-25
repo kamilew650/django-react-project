@@ -4,14 +4,30 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import languages from "../../constants/languages";
+import fetchAutorized from "../../utils/fetchAuthorized/fetchAuthorized";
 
 export default function CreateFolderDialog(props) {
+  const [name, setName] = React.useState("");
+  const [fromLang, setFromLang] = React.useState({
+    full: "Afrikaans",
+    short: "af",
+  });
+  const [toLang, setToLang] = React.useState({ full: "Albanian", short: "sq" });
   const handleClose = () => {
     props.setOpen(false);
+  };
+
+  const handleAdd = () => {
+    fetchAutorized("createFolder", "POST", {
+      name,
+      fromLang: fromLang.short,
+      toLang: toLang.short,
+    });
+
+    handleClose();
   };
 
   return (
@@ -30,12 +46,17 @@ export default function CreateFolderDialog(props) {
           id="name"
           label="Folder name"
           fullWidth
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <Autocomplete
           options={languages}
           getOptionLabel={(option) => option.full}
           style={{ width: 300 }}
-          onChange={(e, newVal) => console.log(newVal.short)}
+          value={fromLang}
+          onChange={(e, selection) => {
+            setFromLang(selection);
+          }}
           renderInput={(params) => (
             <TextField {...params} label="Input language" variant="outlined" />
           )}
@@ -44,6 +65,8 @@ export default function CreateFolderDialog(props) {
           options={languages}
           getOptionLabel={(option) => option.full}
           style={{ width: 300 }}
+          value={toLang}
+          onChange={(e, selection) => setToLang(selection)}
           renderInput={(params) => (
             <TextField {...params} label="Output language" variant="outlined" />
           )}
@@ -53,7 +76,11 @@ export default function CreateFolderDialog(props) {
         <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={handleClose} color="primary">
+        <Button
+          onClick={handleAdd}
+          color="primary"
+          disabled={!(name && fromLang && toLang)}
+        >
           Add
         </Button>
       </DialogActions>

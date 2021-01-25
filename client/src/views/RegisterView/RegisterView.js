@@ -21,10 +21,21 @@ export default function RegisterView() {
   const [context, setContext] = useContext(LoginContext);
   const history = useHistory();
 
-  const loginHandler = () => {
-    setToken("XD");
-    history.push("/");
-    setContext(true);
+  const registerHandler = async () => {
+    await fetch(
+      `http://${process.env.REACT_APP_API_ADDRESS}:${process.env.REACT_APP_API_PORT}/register`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          login,
+          password,
+        }),
+      }
+    )
+      .then((res) => res.json())
+      .then((json) => setToken(json))
+      .then(() => setContext(true))
+      .then(() => history.push("/"));
   };
 
   return (
@@ -51,7 +62,7 @@ export default function RegisterView() {
         onChange={(e) => setPasswordConfirm(e.target.value)}
       />
       <Button
-        onClick={loginHandler}
+        onClick={registerHandler}
         variant="contained"
         color="primary"
         disabled={!(passwordConfirm === password) && password !== ""}

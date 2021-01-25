@@ -12,7 +12,7 @@ const StyledDiv = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 6px;
-  margin-top: 30%;
+  margin-top: 200px;
 `;
 
 export default function LoginView() {
@@ -22,10 +22,21 @@ export default function LoginView() {
   const [context, setContext] = useContext(LoginContext);
   const history = useHistory();
 
-  const loginHandler = () => {
-    setToken("XD");
-    history.push("/");
-    setContext(true);
+  const loginHandler = async () => {
+    await fetch(
+      `http://${process.env.REACT_APP_API_ADDRESS}:${process.env.REACT_APP_API_PORT}/login`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          login,
+          password,
+        }),
+      }
+    )
+      .then((res) => res.json())
+      .then((json) => setToken(json))
+      .then(() => setContext(true))
+      .then(() => history.push("/"));
   };
 
   return (
