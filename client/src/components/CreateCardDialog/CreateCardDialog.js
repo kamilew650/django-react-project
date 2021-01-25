@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -6,14 +7,25 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import FolderContext from "../../context/FolderContext";
+import fetchAuthorized from "../../utils/fetchAuthorized/fetchAuthorized";
 
 export default function CreateCardDialog(props) {
   const [toTranslate, setToTranslate] = React.useState("");
   const [translated, setTranslated] = React.useState("");
   const [context, setContext] = useContext(FolderContext);
+  const history = useHistory();
 
   const handleClose = () => {
     props.setOpen(false);
+  };
+
+  const handleAdd = () => {
+    fetchAuthorized("createFolder", "POST", {
+      card: { before: toTranslate, after: translated },
+      folderId: history.location.pathname.replace("/folder/", ""),
+    });
+
+    handleClose();
   };
 
   const translateHandler = async () => {
@@ -65,7 +77,7 @@ export default function CreateCardDialog(props) {
         <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={handleClose} color="primary" disabled={!translated}>
+        <Button onClick={handleAdd} color="primary" disabled={!translated}>
           Add
         </Button>
       </DialogActions>
