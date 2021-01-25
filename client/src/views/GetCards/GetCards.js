@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GoBackButton from "../../components/GoBackButton/GoBackButton";
@@ -7,12 +8,15 @@ import fetchAuthorized from "../../utils/fetchAuthorized/fetchAuthorized";
 
 export default function GetCards() {
   const [cards, setCards] = React.useState([]);
+  const history = useHistory();
 
   useEffect(() => {
-    fetchAuthorized("getRandomCards", "GET")
+    fetchAuthorized("getRandomCards", "POST", {
+      id: history.location.pathname.replace("/getCards/", ""),
+    })
       .then((res) => res.json())
       .then((json) => setCards(json?.body?.cards));
-  }, []);
+  }, [history.location.pathname]);
 
   const cols = Math.round(
     Math.max(
