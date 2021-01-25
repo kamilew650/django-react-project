@@ -12,7 +12,7 @@ const StyledDiv = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 6px;
-  margin-top: 30%;
+  margin-top: 200px;
 `;
 
 export default function LoginView() {
