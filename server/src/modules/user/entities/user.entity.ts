@@ -1,7 +1,10 @@
+import { Card } from "src/modules/card/card.entity";
+import { Folder } from "src/modules/folder/folder.entity";
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 
@@ -24,4 +27,10 @@ export class User {
 
   @Column()
   password: string;
+
+  @OneToMany(() => Card, card => card.user)
+  cards: Card[]
+
+  @OneToMany(() => Folder, folder => folder.user)
+  folder: Folder[]
 }

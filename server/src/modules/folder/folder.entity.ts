@@ -21,4 +21,8 @@ export class Folder {
 
   @ManyToOne(() => User, user => user.folder)
   user: User
+
+  @Column()
+  @Column()
+  user_id
 }

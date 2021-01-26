@@ -2,7 +2,7 @@
 export class AddCardInput {
   readonly id: number;
 
-  originalContent: string;
+  before: string;
 
-  translatedContent: string;
+  after: string;
 }

@@ -12,34 +12,35 @@ export class FolderService {
     @InjectRepository(Folder) private readonly folderRepository: Repository<Folder>,
   ) { }
 
-  async findCards() {
-    return await this.folderRepository.find({})
+  async findFolders(userId: number) {
+    return await this.folderRepository.find({ where: { user_id: userId } })
   }
 
-  async createCard(folderInput: FolderInput) {
-    const card: DeepPartial<Folder> = {
-
+  async createFolder(userId: number, input: FolderInput) {
+    const folder: DeepPartial<Folder> = {
+      fromLang: input.fromLang,
+      toLang: input.toLang,
+      name: input.name,
+      user_id: userId,
     }
 
     try {
-      await this.folderRepository.save(card)
-      return { message: "Card created." }
+      await this.folderRepository.save(folder)
+      return { message: "Folder created." }
     } catch (err) {
       console.error(err)
     }
   }
 
-  async deleteCard(id: number) {
-    const card = await this.folderRepository.findOne({ id: id })
+  async deleteFolder(userId: number, id: number) {
+    const folder = await this.folderRepository.findOne({ id: id })
 
-    console.log(card)
-
-    if (!card) {
-      throw new NotFoundException('Card not found.')
+    if (!folder) {
+      throw new NotFoundException('Folder not found.')
     }
     try {
-      await this.folderRepository.remove(card)
-      return { message: "Card removed." }
+      await this.folderRepository.remove(folder)
+      return { message: "Folder removed." }
     } catch (err) {
       console.error(err)
 

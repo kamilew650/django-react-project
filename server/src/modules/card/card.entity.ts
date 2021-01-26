@@ -17,6 +17,12 @@ export class Card {
   @ManyToOne(() => Folder, folder => folder.cards, { nullable: true })
   folder: Folder
 
+  @Column()
+  folder_id: number
+
   @ManyToOne(() => User, user => user.cards)
   user: User
+
+  @Column()
+  user_id: number
 }
