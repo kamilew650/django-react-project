@@ -16,13 +16,25 @@ export class CardController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('/random/:id')
+  async findRamndomCards(@UserPayload() user: TokenPayload, @Param('id') folderId: number) {
+    return await this.cardService.findRandomCards(user.userId, folderId)
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/:id')
+  async findCardsByFolderId(@UserPayload() user: TokenPayload, @Param('id') folderId: number) {
+    return await this.cardService.findCardsByFolderId(user.userId, folderId)
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Post()
   async addCard(@UserPayload() user: TokenPayload, @Body() cardInput: AddCardInput) {
     return await this.cardService.createCard(user.userId, cardInput)
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete()
+  @Delete('/:id')
   async deleteCard(@UserPayload() user: TokenPayload, @Param('id') id: number) {
     console.log(id)
     return await this.cardService.deleteCard(user.userId, id)

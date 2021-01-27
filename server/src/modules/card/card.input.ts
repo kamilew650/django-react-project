@@ -5,4 +5,6 @@ export class AddCardInput {
   before: string;
 
   after: string;
+
+  folder_id: number;
 }
