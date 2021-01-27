@@ -6,38 +6,37 @@ import { AddCardInput } from './card.input';
 
 @Injectable()
 export class CardService {
-  constructor(@InjectRepository(Card) private readonly cardRepository: Repository<Card>) {}
+  constructor(@InjectRepository(Card) private readonly cardRepository: Repository<Card>) { }
 
-  async findCards() {
-    return await this.cardRepository.find({})
+  async findCards(userId: number) {
+    return await this.cardRepository.find({ where: { user_id: userId } })
   }
 
-  async createCard(cardInput: AddCardInput) {
+  async createCard(userId: number, cardInput: AddCardInput) {
     const card: DeepPartial<Card> = {
-      originalContent: cardInput.originalContent,
-      translatedContent: cardInput.translatedContent,
+      before: cardInput.before,
+      after: cardInput.after,
+      user_id: userId
     }
 
     try {
       await this.cardRepository.save(card)
-      return { message: "Card created."}
-    } catch(err) {
+      return { message: "Card created." }
+    } catch (err) {
       console.error(err)
     }
   }
 
-  async deleteCard(id: number) {
-    const card = await this.cardRepository.findOne({id: id})
+  async deleteCard(userId: number, id: number) {
+    const card = await this.cardRepository.findOne({ id: id })
 
-    console.log(card)
-
-    if(!card) {
+    if (!card) {
       throw new NotFoundException('Card not found.')
     }
     try {
       await this.cardRepository.remove(card)
-      return { message: "Card removed."}
-    } catch(err) {
+      return { message: "Card removed." }
+    } catch (err) {
       console.error(err)
 
     }

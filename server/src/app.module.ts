@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CardModule } from './modules/card/card.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { FolderModule } from './modules/folder/folder.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AuthModule } from './modules/auth/auth.module';
     CardModule,
     AuthModule,
     UserModule,
+    FolderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
