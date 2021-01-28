@@ -19,22 +19,14 @@ export default function ViewAllCards() {
   const history = useHistory();
 
   useEffect(() => {
-    fetchAuthorized("getAllCards", "POST", {
-      id: history.location.pathname.replace("/viewAll/", ""),
-    })
+    const id = history.location.pathname.replace("/viewAll/", "");
+    fetchAuthorized(`card/${id}`, "GET")
       .then((res) => res.json())
-      .then((json) => setCards(json?.body?.cards));
+      .then((json) => setCards(json));
   }, [history.location.pathname, reset]);
 
   const handleDelete = (e) => {
-    fetchAuthorized("deleteCard", "POST", {
-      folderId: history.location.pathname.replace("/viewAll/", ""),
-      cardId: e,
-    })
-      .then((res) => res.json())
-      .then((json) => setCards(json?.body?.cards));
-
-    setReset(!reset);
+    fetchAuthorized(`card/${e}`, "DELETE", {}).then(() => setReset(!reset));
   };
 
   return (

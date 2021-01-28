@@ -21,13 +21,11 @@ export default function CreateFolderDialog(props) {
   };
 
   const handleAdd = () => {
-    fetchAutorized("createFolder", "POST", {
+    fetchAutorized("folder", "POST", {
       name,
       fromLang: fromLang.short,
       toLang: toLang.short,
-    });
-
-    handleClose();
+    }).then(() => handleClose());
   };
 
   return (

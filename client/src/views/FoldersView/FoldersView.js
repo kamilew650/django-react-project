@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import Card from "@material-ui/core/Card";
@@ -30,15 +30,27 @@ export default function FoldersView() {
   const [context, setContext] = useContext(FolderContext);
   const history = useHistory();
 
+  const wasClosedRef = useRef();
   useEffect(() => {
-    fetchAutorized("getFolders", "GET")
-      .then((res) => res.json)
-      .then((json) => setFolders(json));
+    wasClosedRef.current = open;
   });
+
+  useEffect(() => {
+    fetchAutorized("folder", "GET")
+      .then((res) => res.json())
+      .then((json) => setFolders(json));
+  }, []);
+
+  useEffect(() => {
+    if (wasClosedRef.current === false)
+      fetchAutorized("folder", "GET")
+        .then((res) => res.json())
+        .then((json) => setFolders(json));
+  }, [open]);
 
   const clickHandler = (e) => {
     setContext(e);
-    history.push(`/folder/${e.name}`);
+    history.push(`/folder/${e.id}`);
   };
 
   return (

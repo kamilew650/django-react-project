@@ -32,7 +32,6 @@ export class CardService {
 
   async createCard(userId: number, cardInput: AddCardInput) {
     const folder = this.folderRepository.findOne({ where: { id: cardInput.folder_id } })
-
     if (!folder) {
       throw new NotFoundException('Folder not found.')
     }

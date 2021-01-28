@@ -11,11 +11,10 @@ export default function GetCards() {
   const history = useHistory();
 
   useEffect(() => {
-    fetchAuthorized("getRandomCards", "POST", {
-      id: history.location.pathname.replace("/getCards/", ""),
-    })
+    const id = history.location.pathname.replace("/getCards/", "");
+    fetchAuthorized(`card/random/${id}`, "GET")
       .then((res) => res.json())
-      .then((json) => setCards(json?.body?.cards));
+      .then((json) => setCards(json));
   }, [history.location.pathname]);
 
   const cols = Math.round(
