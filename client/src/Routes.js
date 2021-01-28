@@ -13,6 +13,7 @@ import GetCards from "./views/GetCards/GetCards";
 import ViewAllCards from "./views/ViewAllCards/ViewAllCards";
 import LoginContext from "./context/LoginContext";
 import FolderContext from "./context/FolderContext";
+import AboutUsView from "./views/AboutUsView/AboutUsView";
 
 export default function Routes() {
   const loginFlag = React.useContext(LoginContext);
@@ -41,6 +42,9 @@ export default function Routes() {
             </Route>
             <Route path="/viewAll">
               <ViewAllCards />
+            </Route>
+            <Route path="/about">
+              <AboutUsView />
             </Route>
           </Switch>
         </FolderContext.Provider>
