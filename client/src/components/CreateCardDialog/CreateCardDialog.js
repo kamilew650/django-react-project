@@ -21,8 +21,9 @@ export default function CreateCardDialog(props) {
 
   const handleAdd = () => {
     fetchAuthorized("card", "POST", {
-      card: { before: toTranslate, after: translated },
-      folderId: history.location.pathname.replace("/folder/", ""),
+      before: toTranslate,
+      after: translated,
+      folder_id: parseInt(history.location.pathname.replace("/folder/", "")),
     }).then(() => handleClose());
   };
 
