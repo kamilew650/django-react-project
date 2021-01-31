@@ -16,7 +16,7 @@ const StyledDiv = styled.div`
 `;
 
 export default function LoginView() {
-  const [login, setLogin] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [token, setToken] = useLocalStorage("token", "");
   const [context, setContext] = useContext(LoginContext);
@@ -24,29 +24,43 @@ export default function LoginView() {
 
   const loginHandler = async () => {
     await fetch(
-      `http://${process.env.REACT_APP_API_ADDRESS}:${process.env.REACT_APP_API_PORT}/login`,
+      `http://${process.env.REACT_APP_API_ADDRESS}:${process.env.REACT_APP_API_PORT}/auth/login`,
       {
+        headers: {
+          "Content-type": "application/json",
+        },
         method: "POST",
         body: JSON.stringify({
-          login,
+          email,
           password,
         }),
       }
     )
-      .then((res) => res.json())
-      .then((json) => setToken(json))
+      .then((res) => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
+      .then((json) => {
+        setToken(json.token);
+      })
       .then(() => setContext(true))
-      .then(() => history.push("/"));
+      .then(() => history.push("/"))
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
+      });
   };
 
   return (
     <StyledDiv>
       <Typography variant="h3">Login</Typography>
       <TextField
-        label="Login"
+        label="Email"
         variant="outlined"
-        value={login}
-        onChange={(e) => setLogin(e.target.value)}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <TextField
         label="Password"

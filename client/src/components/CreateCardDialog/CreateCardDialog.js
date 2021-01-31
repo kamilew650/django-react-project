@@ -20,12 +20,10 @@ export default function CreateCardDialog(props) {
   };
 
   const handleAdd = () => {
-    fetchAuthorized("createFolder", "POST", {
+    fetchAuthorized("card", "POST", {
       card: { before: toTranslate, after: translated },
       folderId: history.location.pathname.replace("/folder/", ""),
-    });
-
-    handleClose();
+    }).then(() => handleClose());
   };
 
   const translateHandler = async () => {

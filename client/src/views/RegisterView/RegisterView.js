@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, Typography } from "@material-ui/core";
 import LoginContext from "../../context/LoginContext";
 import useLocalStorage from "../../utils/useLocalStorage/useLocalStorage";
 
@@ -11,10 +11,12 @@ const StyledDiv = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  gap: 6px;
+  margin-top: 200px;
 `;
 
 export default function RegisterView() {
-  const [login, setLogin] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordConfirm, setPasswordConfirm] = React.useState("");
   const [token, setToken] = useLocalStorage("token", "");
@@ -23,29 +25,40 @@ export default function RegisterView() {
 
   const registerHandler = async () => {
     await fetch(
-      `http://${process.env.REACT_APP_API_ADDRESS}:${process.env.REACT_APP_API_PORT}/register`,
+      `http://${process.env.REACT_APP_API_ADDRESS}:${process.env.REACT_APP_API_PORT}/auth/registration`,
       {
+        headers: {
+          "Content-type": "application/json",
+        },
         method: "POST",
-        body: JSON.stringify({
-          login,
-          password,
-        }),
+        body: JSON.stringify({ password, email }),
       }
     )
-      .then((res) => res.json())
-      .then((json) => setToken(json))
+      .then((res) => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
+      .then((json) => {
+        setToken(json.token);
+      })
       .then(() => setContext(true))
-      .then(() => history.push("/"));
+      .then(() => history.push("/"))
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
+      });
   };
 
   return (
     <StyledDiv>
-      <h1>Login screen</h1>
+      <Typography variant="h3">Register screen</Typography>
       <TextField
-        label="Login"
+        label="Email"
         variant="outlined"
-        value={login}
-        onChange={(e) => setLogin(e.target.value)}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <TextField
         label="Password"
@@ -67,7 +80,7 @@ export default function RegisterView() {
         color="primary"
         disabled={!(passwordConfirm === password) && password !== ""}
       >
-        Login
+        Register
       </Button>
     </StyledDiv>
   );
