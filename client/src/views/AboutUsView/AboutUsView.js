@@ -36,7 +36,7 @@ export default function AboutUsView() {
 
   return (
     <AboutUsContainer>
-      <Typography variant="h3">No XD studiujemy</Typography>
+      <Typography variant="h3">Tutaj studiujemy</Typography>
       <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
