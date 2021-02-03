@@ -7,12 +7,12 @@ import useLocalStorage from "../../utils/useLocalStorage/useLocalStorage";
 
 const StyledDiv = styled.div`
   width: 100%;
-  height: 600px;
+  height: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 6px;
-  margin-top: 200px;
+  margin: auto 0;
 `;
 
 export default function LoginView() {
@@ -44,7 +44,7 @@ export default function LoginView() {
         setToken(json.token);
       })
       .then(() => setContext(true))
-      .then(() => history.push("/"))
+      .then(() => history.push("/folders"))
       .catch((error) => {
         console.error(
           "There has been a problem with your fetch operation:",
