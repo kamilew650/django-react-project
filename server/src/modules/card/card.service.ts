@@ -22,7 +22,7 @@ export class CardService {
       .orderBy("RANDOM()")
       .where('user_id = :userId', { userId: userId })
       .andWhere('folder_id = :folderId', { folderId: folderId })
-      .limit(20)
+      .limit(16)
       .getMany()
   }
 
