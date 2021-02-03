@@ -20,7 +20,7 @@ export default function TopBar() {
         <Toolbar>
           {context ? (
             <Link
-              to="/#"
+              to="/folders"
               style={{
                 color: "white",
                 textDecorationLine: "none",
