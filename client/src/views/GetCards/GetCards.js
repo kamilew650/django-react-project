@@ -27,7 +27,7 @@ export default function GetCards() {
   );
   return (
     <>
-      <GridList cellHeight={320} cols={cols} style={{ margin: "0px" }}>
+      <GridList cellHeight='auto' cols={cols}  style={{ margin: "0px", width:"100%"}}>
         {cards.map((tile) => (
           <GridListTile key={tile.before}>
             <ClickableCard tile={tile} />

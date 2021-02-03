@@ -8,13 +8,24 @@ const StyledCard = styled(Card)`
   height: 95%;
   background-color: aliceblue;
   :hover {
-    background-color: #e0f1ff;
+    background-color: #c1e2ff;
+    box-shadow:
+    1px 1px #a8ccea,
+    2px 2px #a8ccea,
+    3px 3px #a8ccea;
   }
+
+  transform: {scaleY(1), scaleX(1);};
+
+  transform-origin: center;
+
   transition: all 0.4s;
   align-items: center;
   justify-content: center;
   display: flex;
   text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
 `;
 
 const HideableText = styled(Typography)`

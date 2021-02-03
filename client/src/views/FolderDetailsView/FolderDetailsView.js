@@ -13,13 +13,19 @@ const StyledCard = styled(Card)`
   height: 95%;
   background-color: aliceblue;
   :hover {
-    background-color: #e0f1ff;
+    background-color: #c1e2ff;
+    box-shadow:
+    1px 1px #a8ccea,
+    2px 2px #a8ccea,
+    3px 3px #a8ccea;
   }
   transition: all 0.4s;
   align-items: center;
   justify-content: center;
   display: flex;
   text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
 `;
 
 export default function FolderDetailsView() {
@@ -45,7 +51,7 @@ export default function FolderDetailsView() {
 
   return (
     <>
-      <GridList cellHeight={320} style={{ margin: "0px" }}>
+      <GridList cellHeight="auto"  style={{ margin: "0px", width:"100%"}}>
         <GridListTile key="getCards">
           <StyledCard onClick={getCardsClickHandler}>
             <CardContent>
