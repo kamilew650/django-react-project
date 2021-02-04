@@ -23,6 +23,8 @@ jobs:
       working-directory: ./client
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Image digest
+        run: ls
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -41,8 +43,8 @@ jobs:
           build-args: |
             arg1=value1
             arg2=value2
-          context: client
-          file: client/Dockerfile
+          context: ./client
+          file: ./client/Dockerfile
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
@@ -71,7 +73,7 @@ jobs:
           build-args: |
             arg1=value1
             arg2=value2
-          context: server
-          file: server/Dockerfile
+          context: ./server
+          file: ./server/Dockerfile
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
