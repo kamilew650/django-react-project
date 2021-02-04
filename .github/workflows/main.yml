@@ -23,8 +23,6 @@ jobs:
       working-directory: ./client
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Move to client dir
-        run: cd ./client
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -53,8 +51,6 @@ jobs:
       working-directory: ./server
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Move to client dir
-        run: cd ./client
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
