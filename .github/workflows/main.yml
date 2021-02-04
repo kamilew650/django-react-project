@@ -23,7 +23,9 @@ jobs:
       working-directory: ./client
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Image digest
+      - name: Image digest ls
+        run: ls -la
+      - name: Image digest pwd
         run: pwd
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
