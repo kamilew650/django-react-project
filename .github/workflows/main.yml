@@ -41,6 +41,8 @@ jobs:
           build-args: |
             arg1=value1
             arg2=value2
+          context: client
+          file: client/Dockerfile
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
@@ -69,5 +71,7 @@ jobs:
           build-args: |
             arg1=value1
             arg2=value2
+          context: server
+          file: server/Dockerfile
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
