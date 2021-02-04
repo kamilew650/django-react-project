@@ -48,9 +48,11 @@ jobs:
       #     context: ./client
       #     file: ./client/Dockerfile
       - name: Build
-        run: docker build -t nobody0192/client:latest -f ./client/Dockerfile ./client
+        run: docker build -t nobody0192/client:latest
+        working-directory: client
       - name: Push
         run: docker push nobody0192/client:latest
+        working-directory: client
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
