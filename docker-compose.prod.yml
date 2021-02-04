@@ -1,0 +1,48 @@
+version: "3"
+   
+services:
+  traefik:
+    image: "traefik:v2.4"
+    container_name: "traefik"
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:3000"
+      - "8000:4000"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  server:
+    image: nobody0192/server:latest
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`api.localhost`)"
+      - "traefik.http.routers.whoami.entrypoints=web"
+
+  db:
+    image: postgres:12-alpine
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+
+  client:
+    image: nobody0192/server:latest
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`app.localhost`)"
+      - "traefik.http.routers.whoami.entrypoints=web"

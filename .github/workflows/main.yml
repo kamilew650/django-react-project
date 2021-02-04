@@ -68,3 +68,16 @@ jobs:
         working-directory: client
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+  deploy:
+    needs: [build-deploy-client, build-deploy-server]
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v1
+      - run: apt-get install sshpass
+      - name: deploy
+        run: sshpass -p "${{ secrets.SERVER_HOST }}" ssh -o StrictHostKeyChecking=no root@${{ secrets.SERVER_HOST }} "docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }} && docker-compose down && docker-compose pull && docker-compose up -d"
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
