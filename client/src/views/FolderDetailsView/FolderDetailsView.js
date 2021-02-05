@@ -40,7 +40,7 @@ export default function FolderDetailsView() {
 
   const deleteFolder = () => {
     const id = history.location.pathname.replace("/folder/", "");
-    fetchAuthorized(`folder/${id}`, "DELETE").then(() => history.push(`/#`));
+    fetchAuthorized(`folder/${id}`, "DELETE").then(() => history.push(`/folders`));
   };
 
   const viewAllClickHandler = (e) => {

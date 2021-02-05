@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { Typography } from "@material-ui/core";
 
 const StyledMap = styled(MapContainer)`
+@media (max-width: 400px) {
+  height:60%;
+    width: 100%;
+  }
   background-attachment: scroll;
   background-clip: border-box;
   background-color: rgb(221, 221, 221);
@@ -28,6 +32,7 @@ const AboutUsContainer = styled.div`
   flex-direction: column;
   align-items: center;
   height: 80vh;
+  width: 100vw;
   gap: 24px;
 `;
 
@@ -36,7 +41,8 @@ export default function AboutUsView() {
 
   return (
     <AboutUsContainer>
-      <Typography variant="h3">Tutaj studiujemy</Typography>
+      <Typography variant="h3" >Tutaj </Typography>
+      <Typography variant="h3" >studiujemy</Typography>
       <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
