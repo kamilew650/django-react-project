@@ -67,6 +67,7 @@ export default function FoldersView() {
             key={tile.name}
             cols={tile.cols || 1}
             onClick={() => clickHandler(tile)}
+            style={{maxHeight:"49%", minHeight:"24%"}}
           >
             <StyledCard>
               <CardContent>
@@ -77,7 +78,7 @@ export default function FoldersView() {
             </StyledCard>
           </GridListTile>
         ))}
-        <GridListTile key="add" onClick={() => setOpen(true)}>
+        <GridListTile key="add" onClick={() => setOpen(true)}  style={{maxHeight:"49%", minHeight:"24%"}}>
           <StyledCard>
             <CardContent>
               <Typography variant="h4" gutterBottom>
