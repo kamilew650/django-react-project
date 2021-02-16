@@ -51,7 +51,7 @@ Zwraca JWT token. Dodaje użytkownika do bazy danych.
 Znajdz wszystkie foldery:  
 Metoda: GET  
 URL: <adres url>/folder  
-Przesyłane dane  
+Przesyłane dane:  
 - id zmienna o type int/number  
 Zwraca folder użytkownika.  
 
@@ -69,7 +69,7 @@ Dodaje folder do bazy danych.
 Usuń folder:  
 Metoda: DELETE  
 URL: <adres url>/folder/:id  
-Przesyłane dane w formacje JSON:  
+Przesyłane dane:  
 - id zmienna o type int/number, jest to id folderu do usunięcia  
 Dodaje folder do bazy danych.  
 
@@ -78,14 +78,14 @@ Dodaje folder do bazy danych.
 Znajdz wszystkie fiszki z danego folderu:  
 Metoda: GET  
 URL: <adres url>/card/:id  
-Przesyłane dane  
+Przesyłane dane:  
 - id zmienna o type int/number, jest to id folderu  
 Zwraca tablice fiszek.  
 
 Znajdz losowe 16 fiszek z danego folderu:  
 Metoda: GET  
 URL: <adres url>/card/random/:id  
-Przesyłane dane  
+Przesyłane dane:  
 - id zmienna o type int/number, jest to id folderu  
 Zwraca tablice fiszek.  
 
@@ -103,6 +103,6 @@ Dodaje folder do bazy danych.
 Usuń fiszkę:  
 Metoda: DELETE  
 URL: <adres url>/card/:id  
-Przesyłane dane w formacje JSON:  
+Przesyłane dane:  
 - id zmienna o type int/number, jest to id fiszki do usunięcia  
 Dodaje folder do bazy danych.  
