@@ -14,6 +14,8 @@ Do uruchomienia aplikacji wymagane jest oprogramowanie:
 - Docker
 - Docker Compose
 
+Należy również w głównym folderze projektu stworzyć plik .env. Następnie skopiować do niego treść pliku template.env i ją uzupełnić.
+
 Aby uruchomić aplikacje należy wejść z poziomu konsoli do głownego folderu projektu i wpisać komendę
 
 ```
